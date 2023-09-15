@@ -45,7 +45,7 @@ public class CompletionIsland {
         if (object instanceof Predators) {
             if (object instanceof Wolf) {
                 for (int i = 0; i < islandModel[((Wolf) object).getX()][((Wolf) object).getY()].size(); i++) {
-                    if (((Wolf) object).canEat(islandModel[((Wolf) object).getX()][((Wolf) object).getY()].get(i)) && ((Wolf) object).saturationNow() && islandModel[((Wolf) object).getX()][((Wolf) object).getY()].get(i) instanceof Herbivores ) {
+                    if (((Wolf) object).canEat(islandModel[((Wolf) object).getX()][((Wolf) object).getY()].get(i)) && ((Wolf) object).saturationNow()) {
                         Herbivores rabbit = (Herbivores) islandModel[((Wolf) object).getX()][((Wolf) object).getY()].get(i);
                         if (new Random().nextFloat(1.0f) < ((Wolf) object).chanceToEat(rabbit.getName())) {
                             ((Wolf) object).setSaturation((rabbit.getWeight() + ((Wolf) object).getSaturation()));
