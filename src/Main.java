@@ -22,8 +22,34 @@ public class Main {
         }
         FillIsland();
 
-        //Не забыть обратно поменять сытость у волков и кроликов !!!!!
-    // rfffef
+        for (int i = 0; i < islandModel.length; i++) {
+            for (int j = 0; j < islandModel[i].length; j++) {
+                int count = 0;
+                for (int k = 0; k < islandModel[i][j].size(); k++) {
+                    if(islandModel[i][j].get(k) instanceof Wolf){
+                        count++;
+                    }
+                }
+                System.out.print(count + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        for (int i = 0; i < islandModel.length; i++) {
+            for (int j = 0; j < islandModel[i].length; j++) {
+                int count = 0;
+                for (int k = 0; k < islandModel[i][j].size(); k++) {
+                    if(islandModel[i][j].get(k) instanceof Rabbit){
+                        count++;
+                    }
+                }
+                System.out.print(count + " ");
+            }
+            System.out.println();
+        }
+
         int countRabbits = 0;
         int countWolf = 0;
         for (int i = 0; i < islandModel.length; i++) {
@@ -32,7 +58,6 @@ public class Main {
                     if(islandModel[i][j].get(k) instanceof Rabbit){
                         countRabbits++;
                     } else if (islandModel[i][j].get(k) instanceof Wolf) {
-                        //CompletionIsland.startEat(islandModel[i][j].get(k));
                         countWolf++;
                     }
                 }
@@ -45,12 +70,30 @@ public class Main {
         CompletionIsland.getAllPlants();
 
 
-        for (int i = 0; i < CompletionIsland.allAnimals.size(); i++){
-            CompletionIsland.startEat(CompletionIsland.allAnimals.get(i));
+        for (int i = 0; i < islandModel.length; i++) {
+            for (int j = 0; j < islandModel[i].length; j++) {
+                for (int k = 0; k < islandModel[i][j].size(); k++) {
+                    CompletionIsland.startEat(islandModel[i][j].get(k));
+                }
+            }
         }
-        //for (int i = 0; i < CompletionIsland.allAnimals.size(); i++) {
-          //  CompletionIsland.move(CompletionIsland.allAnimals.get(i));
-        //}
+
+        for (int i = 0; i < islandModel.length; i++) {
+            for (int j = 0; j < islandModel[i].length; j++) {
+                for (int k = 0; k < islandModel[i][j].size(); k++) {
+                    CompletionIsland.move(islandModel[i][j].get(k));
+                }
+            }
+        }
+
+
+//        for (int i = 0; i < CompletionIsland.allAnimals.size(); i++){
+//            CompletionIsland.startEat(CompletionIsland.allAnimals.get(i));
+//        }
+//        CompletionIsland.getAllAnimals();
+//        for (int i = 0; i < CompletionIsland.allAnimals.size(); i++) {
+//            CompletionIsland.move(CompletionIsland.allAnimals.get(i));
+//        }
 
 
 

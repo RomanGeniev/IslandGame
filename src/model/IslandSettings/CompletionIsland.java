@@ -45,11 +45,13 @@ public class CompletionIsland {
         if (object instanceof Predators) {
             if (object instanceof Wolf) {
                 for (int i = 0; i < islandModel[((Wolf) object).getX()][((Wolf) object).getY()].size(); i++) {
-                    if (((Wolf) object).getSaturation() < ((Wolf) object).getNeedToSaturation() && islandModel[((Wolf) object).getX()][((Wolf) object).getY()].get(i) instanceof Herbivores) {
+                    if (((Wolf) object).canEat(islandModel[((Wolf) object).getX()][((Wolf) object).getY()].get(i)) && ((Wolf) object).saturationNow() && islandModel[((Wolf) object).getX()][((Wolf) object).getY()].get(i) instanceof Herbivores ) {
                         Herbivores rabbit = (Herbivores) islandModel[((Wolf) object).getX()][((Wolf) object).getY()].get(i);
                         if (new Random().nextFloat(1.0f) < ((Wolf) object).chanceToEat(rabbit.getName())) {
-                            ((Wolf) object).setSaturation(((double) rabbit.getWeight() + ((Wolf) object).getSaturation()));
+                            ((Wolf) object).setSaturation((rabbit.getWeight() + ((Wolf) object).getSaturation()));
                             islandModel[rabbit.getX()][rabbit.getY()].remove(rabbit);
+                            break;
+                        }else {
                             break;
                         }
                     }
@@ -58,48 +60,15 @@ public class CompletionIsland {
         }
     }
 
-
-    //    public static void startEat(Object object){
-//        if(object instanceof Predators){
-//            if(object instanceof Wolf){
-//                for (int i = 0; i < allAnimals.size(); i++) {
-//                        if ( ((Wolf) object).saturationNow() && ((Wolf) object).canEat(allAnimals.get(i)) && allAnimals.get(i) instanceof Herbivores && ((Wolf) object).getX() == allAnimals.get(i).getX() && ((Wolf) object).getY() == allAnimals.get(i).getY()) {
-//                            Rabbit rabbit = (Rabbit) allAnimals.get(i);
-//                                if (new Random().nextFloat(1.0f) < ((Wolf) object).chanceToEat(rabbit.getName())) {
-//                                    ((Wolf) object).setSaturation(rabbit.getWeight() + ((Wolf) object).getSaturation());
-//                                    //allAnimals.remove(rabbit);
-//                                    islandModel[rabbit.getX()][rabbit.getY()].remove(rabbit);
-//                                    break;
-//                            }
-//                        }
-//
-//
-//
-//                }
-//            }
-//
-//
-//
-//        }else if(object instanceof Herbivores){
-//
-//
-//
-//        }else {
-//
-//        }
-//    }
     public static void AddInField(int MAX_IN_ONE_CELL, String type) throws NullPointerException {
         switch (type) {
             case "Волк":
-                int count = 0;
                 int id = 0;
                 for (int i = 0; i < islandModel.length; i++) {
                     for (int j = 0; j < islandModel[i].length; j++) {
                         int n = new Random().nextInt(MAX_IN_ONE_CELL);
                         for (int k = 0; k < n + 1; k++) {
                             islandModel[i][j].add(new Wolf(id, 7, i, j, n));
-                            //count++;
-                            //System.out.print(count);
                             id++;
                         }
                     }
@@ -182,7 +151,6 @@ public class CompletionIsland {
             }
             islandModel[oldX][oldY].remove(object);
             islandModel[((Animal) object).getX()][((Animal) object).getY()].add(object);
-            //System.out.println(((Animal) object).getX() + " " + ((Animal) object).getY());
         }
     }
 }
