@@ -1,10 +1,12 @@
 package model;
 
 import model.ActionInterfaces.Eating;
-import model.ActionInterfaces.Moving;
+import model.Herbivores.Herbivores;
 import model.IslandSettings.IslandSize;
+import model.Predators.Predators;
+import model.Predators.Wolf;
 
-public abstract class Animal extends IslandSize implements IslandInterface, Eating, Moving {
+public abstract class Animal extends IslandSize implements IslandInterface, Eating {
     String name;
     int weight;
     int maxInCell;
@@ -15,10 +17,10 @@ public abstract class Animal extends IslandSize implements IslandInterface, Eati
     int x;
     int y;
     int numberInArray;
+    boolean canMove = false;
 
 
-
-    public Animal(String name, int weight, int maxInCell, int maxStep, double needToSaturation, double saturation, int id,int x, int y,int numberInArray){
+    public Animal(String name, int weight, int maxInCell, int maxStep, double needToSaturation, double saturation, int id, int x, int y) {
         this.name = name;
         this.weight = weight;
         this.maxInCell = maxInCell;
@@ -26,31 +28,101 @@ public abstract class Animal extends IslandSize implements IslandInterface, Eati
         this.needToSaturation = needToSaturation;
         this.saturation = saturation;
         this.id = id;
-        this.numberInArray = numberInArray;
+        this.x = x;
+        this.y = y;
     }
 
-    public int getNumberInArray() {
-        return numberInArray;
+    public void setCanMove(boolean canMove) {
+        this.canMove = canMove;
     }
 
-    public abstract int getId();
-    public abstract int getX();
-    public abstract void setX( int x);
-    public abstract int getY();
-    public abstract void setY( int y);
-    public abstract boolean saturationNow();
+    public void reproduction(Object partner) {
+        if (partner instanceof Animal) {
+            for (int i = 0; i < islandModel[((Animal) partner).getX()][((Animal) partner).getY()].size(); i++) {
+                    if (partner instanceof Predators) {
+                        if (partner instanceof Wolf) {
+                            int countWolf = 0;
+                            for (int j = 0; j < islandModel[((Wolf) partner).getX()][((Wolf) partner).getY()].size(); j++) {
+                                countWolf++;
+                            }
+                            for (int j = 0; j < countWolf / 2; j++) {
+                                islandModel[((Wolf) partner).getX()][((Wolf) partner).getY()].add(new Wolf(1, 1,2));
+                            }
+                        }
 
-    public abstract String getName();
+                    } else if (partner instanceof Herbivores) {
 
-    public abstract void setSaturation(double saturation);
+                    }
 
-    public abstract int getWeight();
+            }
+        }
+    }
 
-    public abstract int getMaxInCell();
+    public void hungry() {
+        if (this.canMove) {
+            this.saturation = this.saturation - this.needToSaturation / 3;
+            if (this.saturation <= 0) {
+                islandModel[this.x][this.y].remove(this);
+            }
+        }
+        this.canMove = false;
+    }
 
-    public abstract int getMaxStep();
+    public int getX() {
+        return this.x;
+    }
 
-    public abstract double getNeedToSaturation();
+    public void setX(int x) {
+        this.x = x;
+    }
 
-    public abstract double getSaturation();
+    public int getY() {
+        return this.y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public boolean saturationNow() {
+        if (saturation == getNeedToSaturation()) {
+            return false;
+        } else if (saturation < getNeedToSaturation()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setSaturation(double saturation) {
+        if (saturation > getNeedToSaturation()) {
+            this.saturation = getNeedToSaturation();
+        } else if (saturation < getNeedToSaturation()) {
+            this.saturation = saturation;
+        }
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public int getMaxInCell() {
+        return maxInCell;
+    }
+
+    public int getMaxStep() {
+        return maxStep;
+    }
+
+    public double getNeedToSaturation() {
+        return needToSaturation;
+    }
+
+    public double getSaturation() {
+        return saturation;
+    }
 }

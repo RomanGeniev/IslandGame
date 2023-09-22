@@ -11,18 +11,8 @@ public class Grass extends Plants implements IslandInterface, Eating {
         super(200, "Трава", 1, id, x, y);
     }
 
-    public String getName() {
-        return "Волк";
-    }
-
     @Override
     public boolean canEat(Object object) {
         return false;
-    }
-
-
-    @Override
-    public void eatObject() {
-
     }
 }

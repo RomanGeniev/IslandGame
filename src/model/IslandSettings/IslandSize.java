@@ -6,19 +6,11 @@ import static model.IslandSettings.CompletionIsland.AddInField;
 
 public class IslandSize {
 
-
-    public static void StartingEating(){
-
-        //eatObject();
-    }
-
     public static void FillIsland() {
-        AddInField(30, "Волк");
-        AddInField(200, "Травка");
-        AddInField(150, "Кролик");
+        AddInField("Волк");
+        AddInField("Травка");
+        AddInField("Кролик");
     }
-
-
 
 
     public static final int WIDTH_ISLAND = 5;
