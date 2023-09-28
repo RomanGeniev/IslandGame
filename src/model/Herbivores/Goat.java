@@ -1,12 +1,12 @@
 package model.Herbivores;
 
+import model.GrassGrowth;
+import model.Plants.Grass;
 import model.Plants.Plants;
 
-
-public class Rabbit extends Herbivores {
-
-    public Rabbit(int x, int y) {
-        super("Rabbit", 2, 150, 2, 0.45, 0.40, x, y);
+public class Goat extends Herbivores{
+    public Goat(int x, int y) {
+        super("Goat", 60, 140, 3, 10, 10, x, y);
     }
 
     @Override
@@ -18,6 +18,4 @@ public class Rabbit extends Herbivores {
     public double chanceToEat(String foodName) {
         return 0;
     }
-
-
 }

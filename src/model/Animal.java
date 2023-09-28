@@ -1,33 +1,32 @@
 package model;
 
 import model.ActionInterfaces.Eating;
+import model.Herbivores.Caterpillar;
 import model.Herbivores.Herbivores;
 import model.IslandSettings.IslandSize;
 import model.Predators.Predators;
 import model.Predators.Wolf;
 
-public abstract class Animal extends IslandSize implements IslandInterface, Eating {
+public abstract class Animal extends IslandSize implements Eating {
     String name;
-    int weight;
+    float weight;
     int maxInCell;
     int maxStep;
     double needToSaturation;
     double saturation;
-    int id;
     int x;
     int y;
     int numberInArray;
     boolean canMove = false;
 
 
-    public Animal(String name, int weight, int maxInCell, int maxStep, double needToSaturation, double saturation, int id, int x, int y) {
+    public Animal(String name, float weight, int maxInCell, int maxStep, double needToSaturation, double saturation, int x, int y) {
         this.name = name;
         this.weight = weight;
         this.maxInCell = maxInCell;
         this.maxStep = maxStep;
         this.needToSaturation = needToSaturation;
         this.saturation = saturation;
-        this.id = id;
         this.x = x;
         this.y = y;
     }
@@ -39,27 +38,27 @@ public abstract class Animal extends IslandSize implements IslandInterface, Eati
     public void reproduction(Object partner) {
         if (partner instanceof Animal) {
             for (int i = 0; i < islandModel[((Animal) partner).getX()][((Animal) partner).getY()].size(); i++) {
-                    if (partner instanceof Predators) {
-                        if (partner instanceof Wolf) {
-                            int countWolf = 0;
-                            for (int j = 0; j < islandModel[((Wolf) partner).getX()][((Wolf) partner).getY()].size(); j++) {
-                                countWolf++;
-                            }
-                            for (int j = 0; j < countWolf / 2; j++) {
-                                islandModel[((Wolf) partner).getX()][((Wolf) partner).getY()].add(new Wolf(1, 1,2));
-                            }
+                if (partner instanceof Predators) {
+                    if (partner instanceof Wolf) {
+                        int countWolf = 0;
+                        for (int j = 0; j < islandModel[((Wolf) partner).getX()][((Wolf) partner).getY()].size(); j++) {
+                            countWolf++;
                         }
-
-                    } else if (partner instanceof Herbivores) {
-
+                        for (int j = 0; j < countWolf / 2; j++) {
+                            islandModel[((Wolf) partner).getX()][((Wolf) partner).getY()].add(new Wolf( 1, 2));
+                        }
                     }
+
+                } else if (partner instanceof Herbivores) {
+
+                }
 
             }
         }
     }
 
     public void hungry() {
-        if (this.canMove) {
+        if (this.canMove && !(this instanceof Caterpillar)) {
             this.saturation = this.saturation - this.needToSaturation / 3;
             if (this.saturation <= 0) {
                 islandModel[this.x][this.y].remove(this);
@@ -106,7 +105,7 @@ public abstract class Animal extends IslandSize implements IslandInterface, Eati
         }
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 

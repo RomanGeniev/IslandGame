@@ -7,9 +7,22 @@ import static model.IslandSettings.CompletionIsland.AddInField;
 public class IslandSize {
 
     public static void FillIsland() {
-        AddInField("Волк");
-        AddInField("Травка");
-        AddInField("Кролик");
+        AddInField("Wolf");
+        AddInField("Grass");
+        AddInField("Rabbit");
+        AddInField("Snake");
+        AddInField("Fox");
+        AddInField("Bear");
+        AddInField("Eagle");
+        AddInField("Horse");
+        AddInField("Deer");
+        AddInField("Mouse");
+        AddInField("Goat");
+        AddInField("Sheep");
+        AddInField("Boar");
+        AddInField("Buffalo");
+        AddInField("Duck");
+        AddInField("Caterpillar");
     }
 
 
