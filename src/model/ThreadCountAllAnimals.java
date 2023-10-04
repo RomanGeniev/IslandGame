@@ -82,10 +82,6 @@ public class ThreadCountAllAnimals extends IslandSize implements Runnable {
         System.out.println("Буйволов: " + countBuffalo);
         System.out.println("Уток: " + countDuck);
         System.out.println("Гусениц: " + countCaterpillar);
-//            if (countWolf == 0 ){
-//                System.out.println("Кролки победили");
-//                System.exit(0);
-//            }
     }
 
 }

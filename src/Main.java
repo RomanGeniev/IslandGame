@@ -24,16 +24,12 @@ public class Main {
             }
         }
         FillIsland();
-//        CompletionIsland.shuffleAllArrayLists();
         StartGame startGame = new StartGame();
-        //startGame.run();
         GrassGrowth grassGrowth = new GrassGrowth();
-
         startGame.run();
         ThreadCountAllAnimals threadCountAllAnimals = new ThreadCountAllAnimals();
-        //threadCountAllAnimals.run();
         while (true){
-            //Thread.sleep(2000);
+            Thread.sleep(2000);
             startGame.run();
             grassGrowth.run();
             threadCountAllAnimals.run();

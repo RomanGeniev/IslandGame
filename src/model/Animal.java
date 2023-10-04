@@ -16,7 +16,6 @@ public abstract class Animal extends IslandSize implements Eating {
     double saturation;
     int x;
     int y;
-    int numberInArray;
     boolean canMove = false;
 
 
